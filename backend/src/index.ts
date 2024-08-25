@@ -4,6 +4,8 @@ import "dotenv/config"
 import mongoose from "mongoose"
 import myUserRoute from "./routes/myUser.route"
 import myRestaurantRoute from "./routes/myRestaurant.route"
+import restaurantRoute from "./routes/restaurant.route"
+import orderRoute from "./routes/order.route"
 import { v2 as cloudinary } from "cloudinary"
 
 mongoose
@@ -21,6 +23,8 @@ const app = express()
 
 app.use(cors())
 
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }))
+
 app.use(express.json())
 
 app.get("/", async (req: Request, res: Response) => {
@@ -29,6 +33,8 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.use("/api/user", myUserRoute)
 app.use("/api/my/restaurant", myRestaurantRoute)
+app.use("/api/restaurant", restaurantRoute)
+app.use("/api/order", orderRoute)
 
 app.listen(5000, () => {
   console.log("Server is running on localhost: 5000")

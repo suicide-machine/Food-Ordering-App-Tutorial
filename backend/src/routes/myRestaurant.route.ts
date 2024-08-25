@@ -3,7 +3,9 @@ import { jwtCheck, jwtDecode } from "../middleware/auth"
 import {
   createMyRestaurant,
   getMyRestaurant,
+  getMyRestaurantOrders,
   updateMyRestaurant,
+  updateOrderStatus,
 } from "../controller/myRestaurant.controller"
 import multer from "multer"
 import { validateMyRestaurantRequest } from "../middleware/validation"
@@ -38,5 +40,9 @@ router.put(
   jwtDecode,
   updateMyRestaurant
 )
+
+router.get("/order", jwtCheck, jwtDecode, getMyRestaurantOrders)
+
+router.patch("/order/:orderId/status", jwtCheck, jwtDecode, updateOrderStatus)
 
 export default router

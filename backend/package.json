@@ -5,12 +5,14 @@
   "main": "./src/index.ts",
   "scripts": {
     "start": "node index.ts",
-    "dev": "nodemon"
+    "dev": "concurrently \"nodemon\" \"npm run stripe\" ",
+    "stripe": "stripe listen --forward-to localhost:5000/api/order/checkout/webhook"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cloudinary": "^2.4.0",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -19,7 +21,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "stripe": "^16.8.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

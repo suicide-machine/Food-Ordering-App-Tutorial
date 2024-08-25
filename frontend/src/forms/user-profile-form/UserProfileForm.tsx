@@ -30,9 +30,17 @@ type Props = {
   currentUser: User
   onSave: (userProfileData: UserFormData) => void
   isLoading: boolean
+  title?: string
+  buttonText?: string
 }
 
-const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
+const UserProfileForm = ({
+  onSave,
+  isLoading,
+  currentUser,
+  title = "User Profile",
+  buttonText = "Submit",
+}: Props) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: currentUser,
@@ -49,7 +57,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
         className="space-y-4 bg-gray-50 rounded-lg md:p-10"
       >
         <div>
-          <h2 className="text-2xl font-bold text-slate-700">User Profile </h2>
+          <h2 className="text-2xl font-bold text-slate-700">{title}</h2>
 
           <FormDescription>
             View and update your profile information here
@@ -140,7 +148,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
           <LoadingButton />
         ) : (
           <Button type="submit" className="bg-red-500">
-            Submit
+            {buttonText}
           </Button>
         )}
       </form>
